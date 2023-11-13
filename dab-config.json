@@ -1,0 +1,114 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/download/v0.9.6-rc/dab.draft.schema.json",
+  "data-source": {
+    "database-type": "mssql",
+    "connection-string": "@env('MSSQL')",
+    "options": {
+      "set-session-context": false
+    }
+  },
+  "runtime": {
+    "rest": {
+      "enabled": true,
+      "path": "/api",
+      "request-body-strict": true
+    },
+    "graphql": {
+      "enabled": true,
+      "path": "/graphql",
+      "allow-introspection": true
+    },
+    "host": {
+      "cors": {
+        "origins": [ "*" ],
+        "allow-credentials": false
+      },
+      "authentication": {
+        "provider": "AzureAD",
+        "jwt": {
+          "issuer": "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/v2.0/",
+          "audience": "2a3a6673-d63e-4ded-9afe-44daea485e44"
+        }
+      },
+      "mode": "development"
+    }
+  },
+  "entities": {
+    "Speaker": {
+      "source": {
+        "object": "web.speakers",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "Speaker",
+          "plural": "Speakers"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/speakers"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ],
+      "relationships": {
+        "sessions": {
+          "cardinality": "many",
+          "target.entity": "Session",
+          "source.fields": [],
+          "target.fields": [],
+          "linking.object": "web.sessions_speakers",
+          "linking.source.fields": [],
+          "linking.target.fields": []
+        }
+      }
+    },
+    "Session": {
+      "source": {
+        "object": "web.sessions",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "Session",
+          "plural": "Sessions"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/sessions"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ],
+      "relationships": {
+        "speakers": {
+          "cardinality": "many",
+          "target.entity": "Speaker",
+          "source.fields": [],
+          "target.fields": [],
+          "linking.object": "web.sessions_speakers",
+          "linking.source.fields": [],
+          "linking.target.fields": []
+        }
+      }
+    }
+  }
+}
