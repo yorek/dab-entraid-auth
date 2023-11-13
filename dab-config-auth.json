@@ -24,7 +24,11 @@
         "allow-credentials": false
       },
       "authentication": {
-        "provider": "StaticWebApps"
+        "provider": "AzureAD",
+        "jwt": {
+          "issuer": "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/v2.0/",
+          "audience": "2a3a6673-d63e-4ded-9afe-44daea485e44"
+        }
       },
       "mode": "development"
     }
@@ -86,10 +90,13 @@
       },
       "permissions": [
         {
-          "role": "anonymous",
+          "role": "authenticated",
           "actions": [
             {
-              "action": "read"              
+              "action": "read",
+              "policy": {
+                "database": "@claims.preferred_username eq @item.owner"
+              }
             }
           ]
         }
