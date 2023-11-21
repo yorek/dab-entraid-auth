@@ -20,13 +20,23 @@ If you want to use Azure SQL, read here how to quickly create a new Azure SQL da
 
 ## Configure Microsoft Entra ID
 
+https://github.com/AzureAD/microsoft-authentication-library-for-js
+https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/samples/msal-browser-samples/VanillaJSTestApp2.0/app/default
+https://github.com/Azure-Samples/ms-identity-javascript-v2
+https://github.com/Azure-Samples/ms-identity-javascript-tutorial
 
 
 ## Run Data API builder locally
 
+Create an `.env` file starting from the `.env.example` file and fill in the missing values and add the connection string, then run Data API builder: 
 
+```bash
+dab start
+```
 
 ## Run the client locally
+
+Using VS Code and the Live Server extension, open the `index.html` file.
 
 
 

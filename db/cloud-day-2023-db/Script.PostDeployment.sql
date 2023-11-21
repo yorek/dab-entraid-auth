@@ -1,3 +1,5 @@
+-- This file contains SQL statements that will be executed after the build script.
+
 -- Create application user 
 if (serverproperty('Edition') = 'SQL Azure') begin
     if not exists (select * from sys.database_principals where [type] in ('E', 'S') and [name] = 'dab_user')

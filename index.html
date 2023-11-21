@@ -33,6 +33,7 @@
     </div>    
     <script id="load-msal" src="https://alcdn.msauth.net/browser/2.31.0/js/msal-browser.js" integrity="sha384-BO4qQ2RTxj2akCJc7t6IdU9aRg6do4LGIkVVa01Hm33jxM+v2G+4q+vZjmOCywYq" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha384-UG8ao2jwOWB7/oDdObZc6ItJmwUkR/PfMyt9Qs5AwX7PsnYn1CRKCTWyncPTWvaS" crossorigin="anonymous"></script>
+    <script src="authConfig.js"></script>
     <script>
         const signInButton = document.getElementById("signIn");
         const signOutButton = document.getElementById("signOut");
@@ -42,8 +43,7 @@
 
         const msalConfig = {
             auth: {
-                clientId: "a2a27007-90b0-47e3-ad08-1202d0dfa266",
-                authority: "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/",
+                ...authConfig,
                 redirectUri: "http://localhost:5500",
             },
             cache: {
@@ -80,7 +80,7 @@
         };
 
         const tokenRequest = {
-            scopes: ["api://2a3a6673-d63e-4ded-9afe-44daea485e44/Endpoint.Access"],
+            scopes: [...requestScopes],
             forceRefresh: false
         };
 
@@ -213,7 +213,7 @@
             populateSessionsList($("#filter").val());
         }
 
-        $(function () {
+        $(function() {
             selectAccount();                    
             populateSessionsList();
         });
