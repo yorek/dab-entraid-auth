@@ -26,3 +26,4 @@ if not exists(select * from sys.database_role_members where
 begin
     alter role db_owner add member [dab_user]
 end
+
