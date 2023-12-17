@@ -1,13 +1,14 @@
 #!/bin/bash
 SApassword="Passw0rd!"
 
+echo ">>> Waiting for SQL Server to start..."
 echo "SELECT * FROM SYS.DATABASES" | dd of=testsqlconnection.sql
 for i in {1..60};
 do
     /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P $SApassword -C -d tempdb -i testsqlconnection.sql > /dev/null
     if [ $? -eq 0 ]
     then
-        echo "SQL server ready"
+        echo "SQL Server ready."
         break
     else
         echo "Not ready yet..."
@@ -38,3 +39,11 @@ do
         echo "Dacpac $f deployed."
     fi
 done
+
+echo ">>> Creating .env file...."
+echo "MSSQL='Server=localhost;Initial Catalog=cloud-day-2023-db;Persist Security Info=False;User ID=dab_user;Password=P@ssw0rd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;'" | dd of=.env
+echo ">>> .env file created."
+
+echo ">>> Installing Data API builder..."
+dotnet tool install Microsoft.DataApiBuilder -g
+echo ">>> Data API builder installed."
