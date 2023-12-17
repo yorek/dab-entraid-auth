@@ -182,7 +182,7 @@
             `;
             var headers = { "Content-Type": "application/json" }
             if (token != null) headers["Authorization"] = "Bearer " + token.accessToken;
-            var url = "https://localhost:5001/graphql";
+            var url = "http://localhost:8000/graphql";
             var response = await fetch(
                 url, {
                 method: "POST",
