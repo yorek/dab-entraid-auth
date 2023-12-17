@@ -11,7 +11,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"ms-dotnettools.csharp"
+				"ms-dotnettools.csharp",
+				"ritwickdey.liveserver"
 			]
 		}
 	},
@@ -27,7 +28,7 @@
 		}
 	},
 	// postCreateCommand.sh parameters: $1=SA password, $2=dacpac path, $3=sql script(s) path
-	"postCreateCommand": "bash .devcontainer/mssql/postCreateCommand.sh 'Passw0rd!' './db/cloud-day-2023-db/bin/Debug' './.devcontainer/mssql'"
+	"postCreateCommand": "bash .devcontainer/mssql/postCreateCommand.sh"
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
 }

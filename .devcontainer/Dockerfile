@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/dotnet:1-6.0-jammy
+FROM --platform=amd64 mcr.microsoft.com/devcontainers/dotnet:1-6.0-jammy
 
 # Install SQL Tools: SQLPackage and sqlcmd
 COPY mssql/installSQLtools.sh installSQLtools.sh

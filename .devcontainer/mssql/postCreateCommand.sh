@@ -1,14 +1,10 @@
 #!/bin/bash
-dacpac="false"
-sqlfiles="false"
-SApassword=$1
-dacpath=$2
-sqlpath=$3
+SApassword="Passw0rd!"
 
 echo "SELECT * FROM SYS.DATABASES" | dd of=testsqlconnection.sql
 for i in {1..60};
 do
-    /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SApassword -C -d tempdb -i testsqlconnection.sql > /dev/null
+    /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P $SApassword -C -d tempdb -i testsqlconnection.sql > /dev/null
     if [ $? -eq 0 ]
     then
         echo "SQL server ready"
@@ -20,45 +16,25 @@ do
 done
 rm testsqlconnection.sql
 
+sqlprojpath="./db/cloud-day-2023-db"
+for f in $sqlprojpath/*
+do
+    if [ $f == $sqlprojpath/*".sqlproj" ]
+    then
+        echo "Found sqlproj $f, building..."
+        dotnet build -c Release $f
+        echo "Project sqlproj $f built."
+    fi
+done
+
+dacpath="$sqlprojpath/bin/Release"
 for f in $dacpath/*
 do
     if [ $f == $dacpath/*".dacpac" ]
     then
-        dacpac="true"
-        echo "Found dacpac $f"
+        echo "Found dacpac $f, deploying..."
+        dbname=$(basename $f ".dacpac")
+        /opt/sqlpackage/sqlpackage /Action:Publish /SourceFile:$f /TargetServerName:localhost /TargetDatabaseName:$dbname /TargetUser:sa /TargetPassword:$SApassword /TargetTrustServerCertificate:True
+        echo "Dacpac $f deployed."
     fi
 done
-
-for f in $sqlpath/*
-do
-    if [ $f == $sqlpath/*".sql" ]
-    then
-        sqlfiles="true"
-        echo "Found SQL file $f"
-    fi
-done
-
-if [ $sqlfiles == "true" ]
-then
-    for f in $sqlpath/*
-    do
-        if [ $f == $sqlpath/*".sql" ]
-        then
-            echo "Executing $f"
-            /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SApassword -C -d tempdb -i $f
-        fi
-    done
-fi
-
-if [ $dacpac == "true" ] 
-then
-    for f in $dacpath/*
-    do
-        if [ $f == $dacpath/*".dacpac" ]
-        then
-            dbname=$(basename $f ".dacpac")
-            echo "Deploying dacpac $f"
-            /opt/sqlpackage/sqlpackage /Action:Publish /SourceFile:$f /TargetServerName:localhost /TargetDatabaseName:$dbname /TargetUser:sa /TargetPassword:$SApassword /TargetTrustServerCertificate:True
-        fi
-    done
-fi
