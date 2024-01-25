@@ -2,13 +2,13 @@
 <Project DefaultTargets="Build">
   <Sdk Name="Microsoft.Build.Sql" Version="0.1.12-preview" />
   <PropertyGroup>
-    <Name>cloud-day-2023-db</Name>
+    <Name>dab_entraid</Name>
     <ProjectGuid>{FF59BAAA-9632-4721-9FF3-0AF5C780CECE}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
     <ModelCollation>1033, CI</ModelCollation>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="cloud-day-2023-db.publish.xml" />
+    <None Include="dab_entraid.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

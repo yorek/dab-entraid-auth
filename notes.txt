@@ -1,0 +1,6 @@
+open devcontainer
+
+ dotnet tool install Microsoft.DataApibuilder -g
+
+ 
+

@@ -1,43 +1,21 @@
-# Cloud Day 2023 Demo
+# Authenticate using EntraID with Data API builder from any Javascript client
 
-Demo used at [Cloud Day 2023](https://www.cloudday.it/)
+WIP - Be patient, in the meantime:
 
-The demo shows how to us Data API builder and a plain vanilla Javascript client to integrate authentication with Microsoft Entra ID
+This repo uses Dev Container to provide a development environment with all the tools you need to start developing. Make sure to [VS Code Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers) extension installed and also have Docker installed and running on your machine.
 
+Create a `.env` file in the root of the project with the following content by copying the `.env.sample` file. The sample file is already configured to work with the development environment, so unless you want to change something (for example connect to a differnt server or database, you can leave it as is).
 
-## Prerequisites
-
-Data API builder CLI installed and a SQL Server or Azure SQL database available.
-
-If you want to use SQL Server locally (for free), it is recommended to use go-sqlcmd to install and run SQL Server Developer Edition in a container.
-
-If you want to use Azure SQL, read here how to quickly create a new Azure SQL database (remember that you can use the free tier for this sample).
-
-
-## Deploy the database
-
-
-
-## Configure Microsoft Entra ID
-
-https://github.com/AzureAD/microsoft-authentication-library-for-js
-https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/samples/msal-browser-samples/VanillaJSTestApp2.0/app/default
-https://github.com/Azure-Samples/ms-identity-javascript-v2
-https://github.com/Azure-Samples/ms-identity-javascript-tutorial
-
-
-## Run Data API builder locally
-
-Create an `.env` file starting from the `.env.example` file and fill in the missing values and add the connection string, then run Data API builder: 
+Open the terminal and run 
 
 ```bash
-dab start
+dotnet tool install Microsoft.DataApibuilder -g
 ```
 
-## Run the client locally
+to install Data API builder, than
 
-Using VS Code and the Live Server extension, open the `index.html` file.
+```
+dab start -c config/dab-config-auth.json --no-https-redirect
+```
 
-
-
-
+to run Data API builder. 

@@ -1,8 +1,8 @@
 var authConfig = {
-    clientId: "a2a27007-90b0-47e3-ad08-1202d0dfa266",
-    authority: "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/",
+    clientId: "41e8bb4d-7ff6-437a-8740-2dfd598dcf2b",
+    authority: "https://login.microsoftonline.com/36a71206-0015-4845-a10b-02a03ed530bd",
 }
 
 var requestScopes = [
-    "api://2a3a6673-d63e-4ded-9afe-44daea485e44/Endpoint.Access"
+    "api://33d3ffac-ed9a-4fbe-b79f-5bc96713e860/Endpoints.Access"
 ]
