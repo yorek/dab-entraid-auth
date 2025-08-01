@@ -38,7 +38,7 @@ if ((select count(*) from web.sessions) = 0) begin
     insert into web.sessions 
         (id, title, [owner], abstract, tags, last_updated)
     values
-        (1001, 'From databases to API: an efficient solution both on-premises and in Azure', 'johndoe@acme.com', 'Data API builder turns Azure Databases into REST a GraphQL API so that you can have the backend for your next modern application done in just a few minutes instead of days. With full support to authentication and authorization, integrated with Static Web Apps and easily scalable up and out – using API Management – Data API builder is something you really want to look at. Available both on Azure and on-premises, and Open Source, this is very likely to become your favorite tool. Come and learn everything about it!', '["api", "rest", "graphql", "open-api"]', sysdatetime()),
+        (1001, 'From databases to API: an efficient solution both on-premises and in Azure', 'johndoe@acme.com', 'Data API builder turns Azure Databases into REST a GraphQL API so that you can have the backend for your next modern application done in just a few minutes instead of days. With full support to authentication and authorization, integrated with Static Web Apps and easily scalable up and out - using API Management - Data API builder is something you really want to look at. Available both on Azure and on-premises, and Open Source, this is very likely to become your favorite tool. Come and learn everything about it!', '["api", "rest", "graphql", "open-api"]', sysdatetime()),
         (1002, 'Some cool title here', 'janedean@acme.com', 'Some cool abstract about cool web technology.', '["web"]', sysdatetime())
     ;
     insert into web.sessions_speakers 

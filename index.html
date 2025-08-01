@@ -140,7 +140,9 @@
                 .then(afterSignOut)
                 .catch(error => {
                     console.error(error);
-                });      
+                });    
+            
+            populateSessionsList();
         }
 
         function getTokenPopup(request) {
@@ -180,7 +182,7 @@
                     }  
                 }
             `;
-            var headers = { "Content-Type": "application/json" }
+            var headers = { "Content-Type": "application/json"}
             if (token != null) headers["Authorization"] = "Bearer " + token.accessToken;
             var url = "http://localhost:5000/graphql";
             var response = await fetch(
@@ -191,7 +193,7 @@
             })
             if (response.ok) {
                 var payload = await response.json();
-                return payload.data.sessions.items
+                return payload.data?.sessions?.items
             } else {
                 return [];
             }
@@ -201,10 +203,10 @@
             loadSessions(filter).then(result => {
                 var ul = $("#sessions ul");
                 ul.empty();
-                result.forEach(item => {
-                    var li = $(`<li class='list-group-item'><a href="https://localhost:5001/api/sessions/id/${item.id}">${item.title}</a></li>`);
+                result?.forEach(item => {
+                    var li = $(`<li class='list-group-item'><a href="http://localhost:5000/api/sessions/id/${item.id}">${item.title}</a></li>`);
                     ul.append(li);
-                });
+                })
             });
 
         }

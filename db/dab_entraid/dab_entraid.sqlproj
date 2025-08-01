@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build">
-  <Sdk Name="Microsoft.Build.Sql" Version="0.1.12-preview" />
+  <Sdk Name="Microsoft.Build.Sql" Version="1.0.0" />
   <PropertyGroup>
     <Name>dab_entraid</Name>
     <ProjectGuid>{FF59BAAA-9632-4721-9FF3-0AF5C780CECE}</ProjectGuid>

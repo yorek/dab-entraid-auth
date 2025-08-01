@@ -8,7 +8,7 @@
     "rest": {
       "enabled": true,
       "path": "/api",
-      "request-body-strict": true
+      "request-body-strict": false
     },
     "graphql": {
       "enabled": true,
@@ -23,13 +23,12 @@
         "allow-credentials": false
       },
       "authentication": {
-        "provider": "EntraID",
-        "jwt": {
-          "issuer": "https://login.microsoftonline.com/0d2db678-1e26-4efc-bd68-3fb08199aa9a/v2.0",
-          "audience": "1f1bd660-1f6c-4de1-802c-89d95dd59f22"
-        }
+        "provider": "StaticWebApps"
       },
       "mode": "development"
+    },
+    "cache": {
+      "enabled": true
     }
   },
   "entities": {
@@ -51,28 +50,14 @@
       },
       "permissions": [
         {
-          "role": "authenticated",
+          "role": "anonymous",
           "actions": [
             {
-              "action": "read",
-              "policy": {
-                "database": "@claims.oid eq @item.owner"
-              }
+              "action": "*"
             }
           ]
         }
-      ],
-      "relationships": {
-        "speakers": {
-          "cardinality": "many",
-          "target.entity": "Speaker",
-          "source.fields": [],
-          "target.fields": [],
-          "linking.object": "web.sessions_speakers",
-          "linking.source.fields": [],
-          "linking.target.fields": []
-        }
-      }
+      ]
     },
     "Speaker": {
       "source": {
@@ -95,22 +80,11 @@
           "role": "anonymous",
           "actions": [
             {
-              "action": "read"
+              "action": "*"
             }
           ]
         }
-      ],
-      "relationships": {
-        "sessions": {
-          "cardinality": "many",
-          "target.entity": "Session",
-          "source.fields": [],
-          "target.fields": [],
-          "linking.object": "web.sessions_speakers",
-          "linking.source.fields": [],
-          "linking.target.fields": []
-        }
-      }
+      ]
     }
   }
 }
