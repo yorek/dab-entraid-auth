@@ -132,8 +132,16 @@ The "Session" entity has been configured to allow only `authenticated` request. 
 
 ## Test Entra ID authorization
 
+Make sure you log in and have access to the created scope in your tenant (replace "<Scope ID>" and "<Tenant ID>" with the values you retrieved in the previous steps):
+
 ```
-az login --scope api://1f1bd660-1f6c-4de1-802c-89d95dd59f22/Endpoints.Access --tenant 0d2db678-1e26-4efc-bd68-3fb08199aa9a
+az login --scope "<Scope ID>" --tenant "<Tenant ID>"
 ```
 
-az account get-access-token --scope "api://1f1bd660-1f6c-4de1-802c-89d95dd59f22/Endpoints.Access" --tenant 0d2db678-1e26-4efc-bd68-3fb08199aa9a
+Then get the access token:
+
+```
+az account get-access-token  --scope "<Scope ID>" --tenant "<Tenant ID>"
+```
+
+You'll get an access token that you can use to authenticate your requests to the Data API builder. You can decode the token passing the value of the `accessToken` property returned by the previous command to a JWT decoder tool like [http://jwt.ms].
