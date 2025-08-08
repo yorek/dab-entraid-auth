@@ -2,11 +2,13 @@
 
 ## Pre-Requesites
 
+- [AZ CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 - [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) 
 - [VS Code](https://code.visualstudio.com/)
 - [MSSQL](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql) VS Code Extension
 - [SQL Database Project](https://marketplace.visualstudio.com/items?itemName=ms-mssql.sql-database-projects-vscode) VS Code extension
 - [Live Preview](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server)
+- [REST Client for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 
 ## Deploy the database
 
@@ -144,4 +146,29 @@ Then get the access token:
 az account get-access-token  --scope "<Scope ID>" --tenant "<Tenant ID>"
 ```
 
-You'll get an access token that you can use to authenticate your requests to the Data API builder. You can decode the token passing the value of the `accessToken` property returned by the previous command to a JWT decoder tool like [http://jwt.ms].
+You'll get an access token that you can use to authenticate your requests to the Data API builder. 
+
+Decode the token passing the value of the `accessToken` property returned by the previous command to a JWT decoder tool like [http://jwt.ms].
+
+Get the value of `oid` claim from the decoded token and run the `./db/update-owner.sql` script to update the owner of the session, replacing `OBJECT_ID` with the value you just obtained.
+
+The update script will set the user identified by the `oid` as the owner of the session.
+
+Now you can run Data API builder with the following command:
+
+```bash
+dab start -c config/dab-config-auth.json --no-https-redirect
+```
+
+to load the configuration and start the API builder. You should see output indicating that the API builder is running and ready to accept requests. Data API builder now expect users to be authenticated in order to return data for the "Session" endpoint.
+
+Create a `test-auth.http` file copying the provided `test-auth.http.template` file. Open the `test-auth.http` file and send the GET request: you'll get a `401 Unauthorized` response as there is no bearer token included in the request.
+
+Add the bearer token to the request headers:
+
+```
+GET http://localhost:5000/api/sessions
+Authorization: Bearer <your_access_token>
+```
+
+Now send the request and you should get a `200 OK` response with the session data that you own, as the owner of the session was set to the user identified by the `oid` claim in the access token.

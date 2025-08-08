@@ -400,3 +400,4 @@ FodyWeavers.xsd
 # Custom
 *.env
 authConfig.js
+test-auth.http

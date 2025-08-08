@@ -1,0 +1,4 @@
+### https://learn.microsoft.com/en-us/azure/data-api-builder/concept/api/rest
+
+GET http://localhost:5000/api/sessions
+Authorization: Bearer <access-token>
