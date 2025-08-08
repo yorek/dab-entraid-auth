@@ -399,5 +399,6 @@ FodyWeavers.xsd
 
 # Custom
 *.env
+*.local.json
 authConfig.js
 test-auth.http

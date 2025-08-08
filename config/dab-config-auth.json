@@ -25,8 +25,8 @@
       "authentication": {
         "provider": "EntraID",
         "jwt": {
-          "issuer": "https://login.microsoftonline.com/0d2db678-1e26-4efc-bd68-3fb08199aa9a/v2.0",
-          "audience": "1f1bd660-1f6c-4de1-802c-89d95dd59f22"
+          "issuer": "",
+          "audience": ""
         }
       },
       "mode": "development"
