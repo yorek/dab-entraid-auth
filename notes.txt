@@ -4,3 +4,79 @@ open devcontainer
 
  
 
+---
+
+build and deploy the database using VS Code
+1. Build
+2. Publish
+
+ dab init --database-type mssql --host-mode development --connection-string "@env('MSSQL')"
+
+ dab add Session --source "web.sessions" --permissions "anonymous:*"
+
+dab add Speaker --source "web.speakers" --permissions "anonymous:*" 
+
+dab start
+
+http://localhost:5000/swagger/index.html
+
+change dab config to add rest path "sessions" using VS Code to Session entity to show hot-reload
+
+On another terminal window run the following command to update the dab config file:
+
+dab update Speaker --rest "speakers"  
+
+show HTTP requests
+
+show GraphQL
+
+query {
+  sessions {
+    items {
+      id
+      title
+      abstract
+    }
+  }
+}
+
+add relationship between Session and Speaker
+
+dab update Session --relationship speakers --cardinality many --target.entity Speaker --linking.object web.sessions_speakers
+
+dab update Speaker --relationship sessions --cardinality many --target.entity Session --linking.object web.sessions_speakers
+
+query {
+  sessions {
+    items {
+      id
+      title
+      abstract
+      speakers {
+        items {
+          full_name
+        }
+      }
+    }
+  }
+}
+
+query {
+  speakers {
+    items {
+      id
+      full_name
+      sessions {
+        items {
+          title
+        }
+      }
+    }
+  }
+}
+
+run HTTP client using VS Code
+
+dab configure --runtime.host.cors.origins  http://localhost:5500
+
+run HTTP client (now works!)
